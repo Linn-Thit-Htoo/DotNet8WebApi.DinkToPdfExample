@@ -1,8 +1,4 @@
-﻿using DotNet8WebApi.DinkToPdfExample.Models;
-using DotNet8WebApi.DinkToPdfExample.Services;
-using Microsoft.AspNetCore.Mvc;
-
-namespace DotNet8WebApi.DinkToPdfExample.Controllers
+﻿namespace DotNet8WebApi.DinkToPdfExample.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
