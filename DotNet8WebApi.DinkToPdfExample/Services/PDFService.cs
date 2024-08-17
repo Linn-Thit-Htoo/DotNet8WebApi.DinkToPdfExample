@@ -46,23 +46,71 @@ namespace DotNet8WebApi.DinkToPdfExample.Services
 
         public Task<string> GetHtml(UserModel user)
         {
-            string htmlSTr = $@"
-                    <!doctype html>
-                        <html lang=""en"">
-                          <body>
-                            <!-- Begin page content -->
-                            <main role=""main"" class=""container"">
-                              <h1 class=""mt-5""> {user.UserName}</h1>
-                                <p class=""lead"">
-                                 {user.UserRole}
-                                </p>
-                              <p>{user.IsActive}</p>
-                            </main>
-                          </body>
-                        </html>
-                         ";
+            string htmlStr = $@"
+        <!doctype html>
+        <html lang=""en"">
+            <head>
+                <style>
+                    .header {{
+                        text-align: center;
+                        color: green;
+                        padding-bottom: 35px;
+                    }}
 
-            return Task.FromResult(htmlSTr);
+                    table {{
+                        width: 80%;
+                        border-collapse: collapse;
+                        margin: 0 auto;
+                    }}
+
+                    td, th {{
+                        border: 1px solid gray;
+                        padding: 15px;
+                        font-size: 22px;
+                        text-align: center;
+                    }}
+
+                    table th {{
+                        background-color: green;
+                        color: white;
+                    }}
+                </style>
+            </head>
+            <body>
+                <!-- Begin page content -->
+                <main role=""main"" class=""container"">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Property</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>UserId</td>
+                                <td>{user.UserId}</td>
+                            </tr>
+                            <tr>
+                                <td>UserName</td>
+                                <td>{user.UserName}</td>
+                            </tr>
+                            <tr>
+                                <td>UserRole</td>
+                                <td>{user.UserRole}</td>
+                            </tr>
+                            <tr>
+                                <td>IsActive</td>
+                                <td>{user.IsActive}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </main>
+            </body>
+        </html>
+    ";
+
+            return Task.FromResult(htmlStr);
         }
     }
 }
