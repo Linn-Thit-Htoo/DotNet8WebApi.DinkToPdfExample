@@ -1,52 +1,51 @@
 ﻿using DinkToPdf;
 using DinkToPdf.Contracts;
-using DotNet8WebApi.DinkToPdfExample.Models;
 
-namespace DotNet8WebApi.DinkToPdfExample.Services
+namespace DotNet8WebApi.DinkToPdfExample.Services;
+
+public class PDFService : IPDFService
 {
-    public class PDFService : IPDFService
+    private readonly IConverter _converter;
+
+    public PDFService(IConverter converter)
     {
-        private readonly IConverter _converter;
+        _converter = converter;
+    }
 
-        public PDFService(IConverter converter)
+    public Task<byte[]> GeneratePdf(string htmlContent)
+    {
+        var globalSettings = new GlobalSettings
         {
-            _converter = converter;
-        }
+            ColorMode = ColorMode.Color,
+            Orientation = Orientation.Portrait,
+            PaperSize = PaperKind.A4,
+            Margins = new MarginSettings { Top = 20, Bottom = 10, Left = 30, Right = 30 },
+            DocumentTitle = "User",
 
-        public Task<byte[]> GeneratePdf(string htmlContent)
+        };
+
+        var objectSettings = new ObjectSettings
         {
-            var globalSettings = new GlobalSettings
-            {
-                ColorMode = ColorMode.Color,
-                Orientation = Orientation.Portrait,
-                PaperSize = PaperKind.A4,
-                Margins = new MarginSettings { Top = 20, Bottom = 10, Left = 30, Right = 30 },
-                DocumentTitle = "User",
+            PagesCount = true,
+            HtmlContent = htmlContent,
+            WebSettings = { DefaultEncoding = "utf-8" },
+            HeaderSettings = { FontSize = 8, Right = "Page [page] of [toPage]", Line = true, Spacing = 2.812 },
+            FooterSettings = { FontSize = 8, Right = "Page [page] of [toPage]", Line = true, Spacing = 2.812 },
 
-            };
+        };
 
-            var objectSettings = new ObjectSettings
-            {
-                PagesCount = true,
-                HtmlContent = htmlContent,
-                WebSettings = { DefaultEncoding = "utf-8" },
-                HeaderSettings = { FontSize = 8, Right = "Page [page] of [toPage]", Line = true, Spacing = 2.812 },
-                FooterSettings = { FontSize = 8, Right = "Page [page] of [toPage]", Line = true, Spacing = 2.812 },
-
-            };
-
-            var document = new HtmlToPdfDocument()
-            {
-                GlobalSettings = globalSettings,
-                Objects = { objectSettings }
-            };
-
-            return Task.FromResult(_converter.Convert(document));
-        }
-
-        public Task<string> GetHtml(UserModel user)
+        var document = new HtmlToPdfDocument()
         {
-            string htmlStr = $@"
+            GlobalSettings = globalSettings,
+            Objects = { objectSettings }
+        };
+
+        return Task.FromResult(_converter.Convert(document));
+    }
+
+    public Task<string> GetHtml(UserModel user)
+    {
+        string htmlStr = $@"
         <!doctype html>
         <html lang=""en"">
             <head>
@@ -110,7 +109,6 @@ namespace DotNet8WebApi.DinkToPdfExample.Services
         </html>
     ";
 
-            return Task.FromResult(htmlStr);
-        }
+        return Task.FromResult(htmlStr);
     }
 }
