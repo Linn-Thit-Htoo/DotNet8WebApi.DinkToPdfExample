@@ -19,9 +19,14 @@ public class PDFService : IPDFService
             ColorMode = ColorMode.Color,
             Orientation = Orientation.Portrait,
             PaperSize = PaperKind.A4,
-            Margins = new MarginSettings { Top = 20, Bottom = 10, Left = 30, Right = 30 },
+            Margins = new MarginSettings
+            {
+                Top = 20,
+                Bottom = 10,
+                Left = 30,
+                Right = 30
+            },
             DocumentTitle = "User",
-
         };
 
         var objectSettings = new ObjectSettings
@@ -29,9 +34,20 @@ public class PDFService : IPDFService
             PagesCount = true,
             HtmlContent = htmlContent,
             WebSettings = { DefaultEncoding = "utf-8" },
-            HeaderSettings = { FontSize = 8, Right = "Page [page] of [toPage]", Line = true, Spacing = 2.812 },
-            FooterSettings = { FontSize = 8, Right = "Page [page] of [toPage]", Line = true, Spacing = 2.812 },
-
+            HeaderSettings =
+            {
+                FontSize = 8,
+                Right = "Page [page] of [toPage]",
+                Line = true,
+                Spacing = 2.812
+            },
+            FooterSettings =
+            {
+                FontSize = 8,
+                Right = "Page [page] of [toPage]",
+                Line = true,
+                Spacing = 2.812
+            },
         };
 
         var document = new HtmlToPdfDocument()
@@ -45,7 +61,8 @@ public class PDFService : IPDFService
 
     public Task<string> GetHtml(UserModel user)
     {
-        string htmlStr = $@"
+        string htmlStr =
+            $@"
         <!doctype html>
         <html lang=""en"">
             <head>
