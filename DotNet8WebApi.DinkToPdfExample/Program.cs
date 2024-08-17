@@ -1,8 +1,3 @@
-using DinkToPdf.Contracts;
-using DinkToPdf;
-using DotNet8WebApi.DinkToPdfExample.Services;
-using DotNet8WebApi.DinkToPdfExample;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
