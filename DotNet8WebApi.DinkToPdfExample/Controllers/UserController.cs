@@ -1,9 +1,6 @@
-﻿using DinkToPdf.Contracts;
-using DotNet8WebApi.DinkToPdfExample.Models;
+﻿using DotNet8WebApi.DinkToPdfExample.Models;
 using DotNet8WebApi.DinkToPdfExample.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection.Metadata;
 
 namespace DotNet8WebApi.DinkToPdfExample.Controllers
 {
