@@ -1,7 +1,4 @@
-﻿using DinkToPdf;
-using DinkToPdf.Contracts;
-
-namespace DotNet8WebApi.DinkToPdfExample.Services;
+﻿namespace DotNet8WebApi.DinkToPdfExample.Services;
 
 public class PDFService : IPDFService
 {
